@@ -1,6 +1,10 @@
-import { memo } from "react";
+import React, { memo } from "react";
 
-const SubmitButton = ({ btnText }) => {
+interface Props {
+	btnText: string;
+}
+
+const SubmitButton = ({ btnText }: Props): JSX.Element => {
 	return (
 		<>
 			<button className="submit-btn" type="submit">

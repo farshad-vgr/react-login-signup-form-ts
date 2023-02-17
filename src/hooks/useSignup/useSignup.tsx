@@ -1,6 +1,25 @@
 import { useReducer } from "react";
 
-const initialState = {
+interface State {
+	username: string;
+	password: string;
+	passwordConfirm: string;
+	email: string;
+	usernameHint: string;
+	passwordHint: string;
+	passwordConfirmHint: string;
+	incorrectConfirmHint: string;
+	emailHint: string;
+	isChecked: boolean;
+}
+
+interface Action {
+	type: string;
+	fieldName?: any;
+	payload?: string | boolean;
+}
+
+const initialState: State = {
 	username: "",
 	password: "",
 	passwordConfirm: "",
@@ -13,7 +32,7 @@ const initialState = {
 	isChecked: false,
 };
 
-function signupReducer(state, { type, fieldName, payload }) {
+function signupReducer(state: State, { type, fieldName, payload }: Action): State {
 	switch (type) {
 		case "field": {
 			return {
@@ -102,30 +121,31 @@ function signupReducer(state, { type, fieldName, payload }) {
 
 const useSignup = () => {
 	const [state, dispatch] = useReducer(signupReducer, initialState);
-	const { username, password, passwordConfirm, email } = state;
-
+	
 	// When the user clicks on the Form's submit button, this function handle process
-	const onRegister = (e) => {
+	const onRegister = (e: React.FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
-
+		
+		const { username, password, passwordConfirm, email } = state;
+		
 		if (username.trim() === "") {
 			dispatch({ type: "errorUsername" });
-		} else if (password.trim() === "") {
+		} else if (password.toString().trim() === "") {
 			dispatch({ type: "errorPassword" });
-		} else if (passwordConfirm.trim() === "") {
+		} else if (passwordConfirm.toString().trim() === "") {
 			dispatch({ type: "errorPasswordConfirm" });
-		} else if (password.trim() !== passwordConfirm.trim()) {
+		} else if (password.toString().trim() !== passwordConfirm.toString().trim()) {
 			dispatch({ type: "errorIncorrectConfirm" });
 		} else if (email.trim() === "") {
 			dispatch({ type: "errorEmail" });
 		} else {
 			dispatch({ type: "success" });
-			[...document.querySelectorAll(".show-hide i")].map((btn) => (btn.style.transform = "translateX(150%)"));
+			[...(document.querySelectorAll(".show-hide i") as NodeListOf<HTMLLIElement>)].map((btn) => (btn.style.transform = "translateX(150%)"));
 			alert("Successfully signed up!");
 		}
 	};
 
-	return [state, dispatch, onRegister];
+	return { state, dispatch, onRegister };
 };
 
 export default useSignup;

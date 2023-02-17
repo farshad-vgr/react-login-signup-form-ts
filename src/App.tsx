@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import LoginForm from "./components/LoginForm/LoginForm";
 import SignupForm from "./components/SignupForm/SignupForm";
@@ -8,7 +8,7 @@ import "./App.css";
 function App() {
 	const [isLogin, setIsLogin] = useState(true);
 
-	function isLoginToggler() {
+	function isLoginToggler(): void {
 		setIsLogin(!isLogin);
 	}
 

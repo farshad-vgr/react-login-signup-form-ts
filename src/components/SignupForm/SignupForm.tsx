@@ -7,9 +7,13 @@ import EmailInput from "../EmailInput/EmailInput";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import CheckboxInput from "../CheckboxInput/CheckboxInput";
 
-const SignupForm = ({ isLoginToggler }) => {
-	const [signupState, dispatch, onRegister] = useSignup();
-	const { username, password, passwordConfirm, email, usernameHint, passwordHint, passwordConfirmHint, emailHint, isChecked } = signupState;
+interface Props {
+	isLoginToggler: () => void;
+}
+
+const SignupForm = ({ isLoginToggler }: Props): JSX.Element => {
+	const { state, dispatch, onRegister } = useSignup();
+	const { username, password, passwordConfirm, email, usernameHint, passwordHint, passwordConfirmHint, emailHint, isChecked } = state;
 
 	return (
 		<>
@@ -17,7 +21,7 @@ const SignupForm = ({ isLoginToggler }) => {
 				<section className="form-wrapper">
 					<h1 className="form-title">Signup form:</h1>
 
-					<form className="form" onSubmit={(e)=> onRegister(e)}>
+					<form className="form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => onRegister(e)}>
 						<UsernameInput dispatch={dispatch} username={username} usernameHint={usernameHint} />
 
 						<PasswordInput dispatch={dispatch} password={password} passwordHint={passwordHint} placeHolder="Password" />
