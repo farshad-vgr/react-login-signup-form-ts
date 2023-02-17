@@ -1,0 +1,30 @@
+@font-face {
+	font-family: "Rubik";
+	src: url(./assets/fonts/Rubik-Regular.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  user-select: none;
+  cursor: default;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Rubik';
+  background-image: url(./assets/images/bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.suspense-fallback {
+  margin: 5rem auto;
+  font-size: 5rem;
+  color: gray;
+}
