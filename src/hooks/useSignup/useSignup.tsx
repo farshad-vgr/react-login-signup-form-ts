@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { Dispatch, useReducer } from "react";
 
 interface State {
 	username: string;
@@ -119,7 +119,9 @@ function signupReducer(state: State, { type, fieldName, payload }: Action): Stat
 	}
 }
 
-const useSignup = () => {
+type CustomHook = () => { state: State; dispatch: Dispatch<Action>; onRegister: Function };
+
+const useSignup: CustomHook = () => {
 	const [state, dispatch] = useReducer(signupReducer, initialState);
 	
 	// When the user clicks on the Form's submit button, this function handle process
@@ -140,7 +142,7 @@ const useSignup = () => {
 			dispatch({ type: "errorEmail" });
 		} else {
 			dispatch({ type: "success" });
-			[...(document.querySelectorAll(".show-hide i") as NodeListOf<HTMLLIElement>)].map((btn) => (btn.style.transform = "translateX(150%)"));
+			[...(document.querySelectorAll(".show-hide i") as NodeListOf<HTMLSpanElement>)].map((btn) => (btn.style.transform = "translateX(150%)"));
 			alert("Successfully signed up!");
 		}
 	};

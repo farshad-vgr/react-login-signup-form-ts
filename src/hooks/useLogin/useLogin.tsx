@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { Dispatch, useReducer } from "react";
 
 interface State {
 	username: string;
@@ -65,7 +65,9 @@ function loginReducer(state: State, { type, fieldName, payload }: Action): State
 	}
 }
 
-const useLogin = () => {
+type CustomHook = () => { state: State; dispatch: Dispatch<Action>; onSubmit: Function };
+
+const useLogin: CustomHook = () => {
 	const [state, dispatch] = useReducer(loginReducer, initialState);
 	
 	// When the user clicks on the Form's submit button, this function handle process
@@ -76,7 +78,7 @@ const useLogin = () => {
 		
 		if (username.trim() === "ejiro" && password.toString().trim() === "12345678") {
 			dispatch({ type: "success" });
-			(document.getElementById("show") as HTMLLIElement).style.transform = "translateX(150%)";
+			(document.getElementById("show") as HTMLSpanElement).style.transform = "translateX(150%)";
 			alert("Successfully loged in!");
 		} else if (state.username.trim() === "") {
 			dispatch({ type: "errorUsername" });

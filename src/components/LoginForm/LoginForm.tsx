@@ -13,13 +13,15 @@ interface Props {
 
 const LoginForm = ({ isLoginToggler }: Props): JSX.Element => {
 	const { state, dispatch, onSubmit } = useLogin();
+
+	// Destructuring state values for easier usage in return section
 	const { username, password, usernameHint, passwordHint, isChecked } = state;
 
 	return (
 		<>
 			<main className="container">
 				<section className="form-wrapper">
-					<h1 className="form-title">Login form:</h1>
+					<h1 className="form-title">Login Form</h1>
 
 					<form className="form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}>
 						<UsernameInput dispatch={dispatch} username={username} usernameHint={usernameHint} />

@@ -15,7 +15,7 @@ interface Props {
 
 const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props): JSX.Element => {
 	const passwordInput = useRef<HTMLInputElement>(null);
-	const eyeBtn = useRef<HTMLLIElement>(null);
+	const eyeBtn = useRef<HTMLSpanElement>(null);
 
 	const iconStyles: React.CSSProperties =
 		passwordHint.length > 0
