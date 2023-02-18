@@ -1,11 +1,8 @@
 import React, { memo } from "react";
 
 import useLogin from "../../hooks/useLogin/useLogin";
-import UsernameInput from "../UsernameInput/UsernameInput";
-import PasswordInput from "../PasswordInput/PasswordInput";
-import CheckboxInput from "../CheckboxInput/CheckboxInput";
-import SubmitButton from "../SubmitButton/SubmitButton";
-import SocialButton from "../SocialButton/SocialButton";
+
+import { UsernameInput, PasswordInput, CheckboxInput, SubmitButton, SocialButton } from "../../components";
 
 interface Props {
 	isLoginToggler: () => void;

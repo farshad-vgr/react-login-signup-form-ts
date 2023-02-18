@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 
-import LoginForm from "./components/LoginForm/LoginForm";
-import SignupForm from "./components/SignupForm/SignupForm";
+import { LoginForm, SignupForm } from "./components"
 
 import "./App.css";
 
