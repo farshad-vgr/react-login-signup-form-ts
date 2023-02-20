@@ -5,10 +5,10 @@ import useSignup from "../../hooks/useSignup/useSignup";
 import { UsernameInput, PasswordInput, EmailInput, CheckboxInput, SubmitButton } from "../../components";
 
 interface Props {
-	isLoginToggler: () => void;
+	formToggler: () => void;
 }
 
-const SignupForm = ({ isLoginToggler }: Props): JSX.Element => {
+const SignupForm = ({ formToggler }: Props): JSX.Element => {
 	const { state, dispatch, onRegister } = useSignup();
 
 	// Destructuring state values for easier usage in return section
@@ -43,7 +43,7 @@ const SignupForm = ({ isLoginToggler }: Props): JSX.Element => {
 							<span>Subscribe Newsletter?</span>
 							<span
 								onClick={() => {
-									isLoginToggler();
+									formToggler();
 									dispatch({ type: "success" });
 								}}>
 								Login?

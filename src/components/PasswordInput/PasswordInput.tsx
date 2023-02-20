@@ -14,8 +14,8 @@ interface Props {
 }
 
 const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props): JSX.Element => {
-	const passwordInput = useRef<HTMLInputElement>(null);
-	const eyeBtn = useRef<HTMLSpanElement>(null);
+	const passwordInput = useRef<HTMLInputElement>(null!);
+	const eyeBtn = useRef<HTMLElement>(null!);
 
 	const iconStyles: React.CSSProperties =
 		passwordHint.length > 0
@@ -44,11 +44,9 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 						style={inputStyles}
 						value={password}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-							if (eyeBtn.current !== null) {
-								e.target.value.toString().length > 0
-									? (eyeBtn.current.style.transform = "translateX(0)")
-									: (eyeBtn.current.style.transform = "translateX(150%)");
-							}
+							e.target.value.toString().length > 0
+								? (eyeBtn.current.style.transform = "translateX(0)")
+								: (eyeBtn.current.style.transform = "translateX(150%)");
 							dispatch({
 								type: "field",
 								fieldName: placeHolder === "Password" ? "password" : "passwordConfirm",
@@ -63,14 +61,12 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 							id="show"
 							className="fa fa-eye"
 							onClick={() => {
-								if (passwordInput.current !== null && eyeBtn.current !== null) {
-									if (passwordInput.current.type === "password") {
-										passwordInput.current.type = "text";
-										eyeBtn.current.classList.add("hide");
-									} else {
-										passwordInput.current.type = "password";
-										eyeBtn.current.classList.remove("hide");
-									}
+								if (passwordInput.current.type === "password") {
+									passwordInput.current.type = "text";
+									eyeBtn.current.classList.add("hide");
+								} else {
+									passwordInput.current.type = "password";
+									eyeBtn.current.classList.remove("hide");
 								}
 							}}></i>
 					</span>

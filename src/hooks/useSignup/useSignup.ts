@@ -1,4 +1,4 @@
-import { Dispatch, useReducer } from "react";
+import { useReducer } from "react";
 
 interface State {
 	username: string;
@@ -32,7 +32,9 @@ const initialState: State = {
 	isChecked: false,
 };
 
-function signupReducer(state: State, { type, fieldName, payload }: Action): State {
+function signupReducer(state: State, action: Action): State {
+	const { type, fieldName, payload } = action;
+
 	switch (type) {
 		case "field": {
 			return {
@@ -119,7 +121,7 @@ function signupReducer(state: State, { type, fieldName, payload }: Action): Stat
 	}
 }
 
-type CustomHook = () => { state: State; dispatch: Dispatch<Action>; onRegister: Function };
+type CustomHook = () => { state: State; dispatch: React.Dispatch<Action>; onRegister: (e: React.FormEvent<HTMLFormElement>) => void };
 
 const useSignup: CustomHook = () => {
 	const [state, dispatch] = useReducer(signupReducer, initialState);
@@ -142,7 +144,7 @@ const useSignup: CustomHook = () => {
 			dispatch({ type: "errorEmail" });
 		} else {
 			dispatch({ type: "success" });
-			[...(document.querySelectorAll(".show-hide i") as NodeListOf<HTMLSpanElement>)].map((btn) => (btn.style.transform = "translateX(150%)"));
+			[...(document.querySelectorAll(".show-hide i") as NodeListOf<HTMLElement>)].map((btn) => (btn.style.transform = "translateX(150%)"));
 			alert("Successfully signed up!");
 		}
 	};

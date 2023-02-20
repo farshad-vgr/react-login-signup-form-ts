@@ -5,14 +5,15 @@ import { LoginForm, SignupForm } from "./components"
 import "./App.css";
 
 function App(): JSX.Element {
-	const [isLogin, setIsLogin] = useState<boolean>(true);
+	// By default login form will be shown to the user
+	const [loginFormShowed, setLoginFrormShowed] = useState<boolean>(true);
 
-	const isLoginToggler: () => void = useCallback(() => {
-		setIsLogin(!isLogin);
-	}, [isLogin]);
+	const formToggler: () => void = useCallback(() => {
+		setLoginFrormShowed(!loginFormShowed);
+	}, [loginFormShowed]);
 
-	// Switch between the Login component and the Signup component when user click on button
-	return <>{isLogin ? <LoginForm isLoginToggler={isLoginToggler} /> : <SignupForm isLoginToggler={isLoginToggler} />}</>;
+	// Switch between the Login component and the Signup component when the user clicked on a specific button
+	return <>{loginFormShowed ? <LoginForm formToggler={formToggler} /> : <SignupForm formToggler={formToggler} />}</>;
 }
 
 export default App;
