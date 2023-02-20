@@ -73,14 +73,15 @@ type CustomHook = () => { state: State; dispatch: React.Dispatch<Action>; onSubm
 
 const useLogin: CustomHook = () => {
 	const [state, dispatch] = useReducer(loginReducer, initialState);
-	
+
 	// When the user clicks on the Form's submit button, this function handle process
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
-		
+
 		const { username, password } = state;
-		
-		if (username.trim() === "ejiro" && password.toString().trim() === "12345678") {
+
+		// Evaluating input values and then showing the proper result to the user
+		if (formValidator(username, password)) {
 			dispatch({ type: "success" });
 			(document.getElementById("show") as HTMLElement).style.transform = "translateX(150%)";
 			alert("Successfully loged in!");
@@ -90,9 +91,22 @@ const useLogin: CustomHook = () => {
 			dispatch({ type: "errorPassword" });
 		} else {
 			dispatch({ type: "error" });
-			alert("Incorrect username or password!");
+			alert(`Incorrect username or password!\ntry this:\nusername = ejiro\npassword = 12345678`);
 		}
 	};
+
+	function formValidator(usernameValue: string, passwordValue: string): boolean {
+		if (
+			usernameValue.length > 0 &&
+			!/^\s*$/.test(usernameValue) &&
+			usernameValue.trim() === "ejiro" &&
+			passwordValue.length > 0 &&
+			!/^\s*$/.test(passwordValue) &&
+			passwordValue.trim() === "12345678"
+		) {
+			return true;
+		} else return false;
+	}
 
 	return { state, dispatch, onSubmit };
 };

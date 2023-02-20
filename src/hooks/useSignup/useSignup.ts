@@ -130,29 +130,45 @@ type CustomHook = () => { state: State; dispatch: React.Dispatch<Action>; onRegi
 
 const useSignup: CustomHook = () => {
 	const [state, dispatch] = useReducer(signupReducer, initialState);
-	
+
 	// When the user clicks on the Form's submit button, this function handle process
 	const onRegister = (e: React.FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
-		
+
 		const { username, password, passwordConfirm, email } = state;
-		
-		if (username.trim() === "") {
+
+		// Evaluating input values and then showing the proper result to the user
+		if (formValidator(username, password, passwordConfirm, email)) {
+			dispatch({ type: "success" });
+			[...(document.querySelectorAll(".show-hide i") as NodeListOf<HTMLElement>)].map((btn) => (btn.style.transform = "translateX(150%)"));
+			alert(`Successfully signed up ( ${username} )!`);
+		} else if (username.trim() === "") {
 			dispatch({ type: "errorUsername" });
-		} else if (password.toString().trim() === "") {
+		} else if (password.trim() === "") {
 			dispatch({ type: "errorPassword" });
-		} else if (passwordConfirm.toString().trim() === "") {
+		} else if (passwordConfirm.trim() === "") {
 			dispatch({ type: "errorPasswordConfirm" });
-		} else if (password.toString().trim() !== passwordConfirm.toString().trim()) {
+		} else if (password.trim() !== passwordConfirm.trim()) {
 			dispatch({ type: "errorIncorrectConfirm" });
 		} else if (email.trim() === "") {
 			dispatch({ type: "errorEmail" });
-		} else {
-			dispatch({ type: "success" });
-			[...(document.querySelectorAll(".show-hide i") as NodeListOf<HTMLElement>)].map((btn) => (btn.style.transform = "translateX(150%)"));
-			alert("Successfully signed up!");
 		}
 	};
+
+	function formValidator(usernameValue: string, passwordValue: string, passwordConfirmValue: string, emailValue: string): boolean {
+		if (
+			usernameValue.length > 0 &&
+			!/^\s*$/.test(usernameValue) &&
+			passwordValue.length > 0 &&
+			!/^\s*$/.test(passwordValue) &&
+			passwordConfirmValue.length > 0 &&
+			!/^\s*$/.test(passwordConfirmValue) &&
+			emailValue.length > 0 &&
+			!/^\s*$/.test(emailValue)
+		) {
+			return true;
+		} else return false;
+	}
 
 	return { state, dispatch, onRegister };
 };

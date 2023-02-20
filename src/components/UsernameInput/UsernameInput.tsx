@@ -28,7 +28,7 @@ const UsernameInput = ({ dispatch, username, usernameHint, placeHolder }: Props)
 		if (usernameHint.length > 0) {
 			(document.querySelector(`[placeholder=${placeHolder}]`) as HTMLInputElement).focus();
 		}
-	}, [usernameHint]);
+	}, [usernameHint, placeHolder]);
 
 	return (
 		<>

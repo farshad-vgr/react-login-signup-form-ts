@@ -31,7 +31,7 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 		if (passwordHint.length > 0) {
 			(document.querySelector(`[placeholder=${placeHolder}]`) as HTMLInputElement).focus();
 		}
-	}, [passwordHint]);
+	}, [passwordHint, placeHolder]);
 
 	return (
 		<>

@@ -28,7 +28,7 @@ const EmailInput = ({ dispatch, email, emailHint, placeHolder }: Props): JSX.Ele
 		if (emailHint.length > 0) {
 			(document.querySelector(`[placeholder=${placeHolder}]`) as HTMLInputElement).focus();
 		}
-	}, [emailHint]);
+	}, [emailHint, placeHolder]);
 
 	return (
 		<>
