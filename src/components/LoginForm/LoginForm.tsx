@@ -21,7 +21,7 @@ const LoginForm = ({ formToggler }: Props): JSX.Element => {
 					<h1 className="form-title">Login Form</h1>
 
 					<form className="form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}>
-						<UsernameInput dispatch={dispatch} username={username} usernameHint={usernameHint} />
+						<UsernameInput dispatch={dispatch} username={username} usernameHint={usernameHint} placeHolder="Name" />
 
 						<PasswordInput dispatch={dispatch} password={password} passwordHint={passwordHint} placeHolder="Password" />
 

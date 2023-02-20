@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 
 interface Dispatch {
 	type: string;
@@ -10,9 +10,10 @@ interface Props {
 	dispatch: ({ type, fieldName, payload }: Dispatch) => void;
 	username: string;
 	usernameHint: string;
+	placeHolder: string;
 }
 
-const UsernameInput = ({ dispatch, username, usernameHint }: Props): JSX.Element => {
+const UsernameInput = ({ dispatch, username, usernameHint, placeHolder }: Props): JSX.Element => {
 	const iconStyles: React.CSSProperties =
 		usernameHint.length > 0
 			? {
@@ -22,6 +23,12 @@ const UsernameInput = ({ dispatch, username, usernameHint }: Props): JSX.Element
 			: {};
 
 	const inputStyles: React.CSSProperties = usernameHint.length > 0 ? { borderBottomColor: "red" } : {};
+
+	useEffect(() => {
+		if (usernameHint.length > 0) {
+			(document.querySelector(`[placeholder=${placeHolder}]`) as HTMLInputElement).focus();
+		}
+	}, [usernameHint]);
 
 	return (
 		<>
@@ -34,7 +41,7 @@ const UsernameInput = ({ dispatch, username, usernameHint }: Props): JSX.Element
 					<input
 						autoFocus
 						type="text"
-						placeholder="Name"
+						placeholder={placeHolder}
 						minLength={3}
 						maxLength={15}
 						style={inputStyles}

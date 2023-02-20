@@ -40,6 +40,11 @@ function signupReducer(state: State, action: Action): State {
 			return {
 				...state,
 				[fieldName]: payload,
+				usernameHint: "",
+				passwordHint: "",
+				passwordConfirmHint: "",
+				incorrectConfirmHint: "",
+				emailHint: "",
 			};
 		}
 		case "success": {

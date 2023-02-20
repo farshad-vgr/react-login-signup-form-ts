@@ -21,13 +21,13 @@ const SignupForm = ({ formToggler }: Props): JSX.Element => {
 					<h1 className="form-title">Signup Form</h1>
 
 					<form className="form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => onRegister(e)}>
-						<UsernameInput dispatch={dispatch} username={username} usernameHint={usernameHint} />
+						<UsernameInput dispatch={dispatch} username={username} usernameHint={usernameHint} placeHolder="Name" />
 
 						<PasswordInput dispatch={dispatch} password={password} passwordHint={passwordHint} placeHolder="Password" />
 
-						<PasswordInput dispatch={dispatch} password={passwordConfirm} passwordHint={passwordConfirmHint} placeHolder="Confirm Password" />
+						<PasswordInput dispatch={dispatch} password={passwordConfirm} passwordHint={passwordConfirmHint} placeHolder="Confirm-Password" />
 
-						<EmailInput dispatch={dispatch} email={email} emailHint={emailHint} />
+						<EmailInput dispatch={dispatch} email={email} emailHint={emailHint} placeHolder="Email" />
 
 						<section className="form-terms">
 							<CheckboxInput dispatch={dispatch} isChecked={isChecked} checkboxText="I Agree with all terms!" isRequired={true} />

@@ -12,7 +12,7 @@ function App(): JSX.Element {
 		setLoginFrormShowed(!loginFormShowed);
 	}, [loginFormShowed]);
 
-	// Switch between the Login component and the Signup component when the user clicked on a specific button
+	// Switch between the Login component and the Signup component when the user clicked on a specific button on form
 	return <>{loginFormShowed ? <LoginForm formToggler={formToggler} /> : <SignupForm formToggler={formToggler} />}</>;
 }
 

@@ -30,6 +30,8 @@ function loginReducer(state: State, action: Action): State {
 			return {
 				...state,
 				[fieldName]: payload,
+				usernameHint: "",
+				passwordHint: "",
 			};
 		}
 		case "success": {

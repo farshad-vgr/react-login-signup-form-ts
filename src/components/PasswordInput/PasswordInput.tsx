@@ -1,4 +1,4 @@
-import React, { memo, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 
 interface Dispatch {
 	type: string;
@@ -26,6 +26,12 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 			: {};
 
 	const inputStyles: React.CSSProperties = passwordHint.length > 0 ? { borderBottomColor: "red" } : {};
+
+	useEffect(() => {
+		if (passwordHint.length > 0) {
+			(document.querySelector(`[placeholder=${placeHolder}]`) as HTMLInputElement).focus();
+		}
+	}, [passwordHint]);
 
 	return (
 		<>

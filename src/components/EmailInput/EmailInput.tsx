@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 
 interface Dispatch {
 	type: string;
@@ -10,9 +10,10 @@ interface Props {
 	dispatch: ({ type, fieldName, payload }: Dispatch) => void;
 	email: string;
 	emailHint: string;
+	placeHolder: string;
 }
 
-const EmailInput = ({ dispatch, email, emailHint }: Props): JSX.Element => {
+const EmailInput = ({ dispatch, email, emailHint, placeHolder }: Props): JSX.Element => {
 	const iconStyles: React.CSSProperties =
 		emailHint.length > 0
 			? {
@@ -22,6 +23,12 @@ const EmailInput = ({ dispatch, email, emailHint }: Props): JSX.Element => {
 			: {};
 
 	const inputStyles: React.CSSProperties = emailHint.length > 0 ? { borderBottomColor: "red" } : {};
+
+	useEffect(() => {
+		if (emailHint.length > 0) {
+			(document.querySelector(`[placeholder=${placeHolder}]`) as HTMLInputElement).focus();
+		}
+	}, [emailHint]);
 
 	return (
 		<>
