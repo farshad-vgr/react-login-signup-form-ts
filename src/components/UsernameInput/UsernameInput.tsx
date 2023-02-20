@@ -32,6 +32,7 @@ const UsernameInput = ({ dispatch, username, usernameHint }: Props): JSX.Element
 					</div>
 
 					<input
+						autoFocus
 						type="text"
 						placeholder="Name"
 						minLength={3}

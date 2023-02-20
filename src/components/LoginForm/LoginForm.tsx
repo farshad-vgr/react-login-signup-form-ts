@@ -32,13 +32,13 @@ const LoginForm = ({ formToggler }: Props): JSX.Element => {
 						<span className="or-section">&mdash; or &mdash;</span>
 
 						<section className="social-login">
-							<SocialButton href="https://www.facebook.com/login/" btnColor="#3b5998" iconName="fab fa-facebook-f" btnText="Login with Facebook" />
+							<SocialButton href="https://www.facebook.com/login/" btnColor="#3b5998c4" iconName="fab fa-facebook-f" btnText="Login with Facebook" />
 
-							<SocialButton href="https://twitter.com/login?lang=en" btnColor="#1da1f2" iconName="fab fa-twitter" btnText="Login with Twitter" />
+							<SocialButton href="https://twitter.com/login?lang=en" btnColor="#1da1f2c4" iconName="fab fa-twitter" btnText="Login with Twitter" />
 
 							<SocialButton
 								href="https://myaccount.google.com/?utm_source=sign_in_no_continue&pli=1"
-								btnColor="#ea4335"
+								btnColor="#ea4335c4"
 								iconName="fab fa-google"
 								btnText="Login with Google"
 							/>
