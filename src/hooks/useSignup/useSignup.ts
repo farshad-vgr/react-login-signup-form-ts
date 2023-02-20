@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { toast } from "react-toastify";
 
 interface State {
 	username: string;
@@ -141,7 +142,8 @@ const useSignup: CustomHook = () => {
 		if (formValidator(username, password, passwordConfirm, email)) {
 			dispatch({ type: "success" });
 			[...(document.querySelectorAll(".show-hide i") as NodeListOf<HTMLElement>)].map((btn) => (btn.style.transform = "translateX(150%)"));
-			alert(`Successfully signed up ( ${username} )!`);
+			toast.info(`Successfully signed up ( ${username} )!`);
+			toast.clearWaitingQueue();
 		} else if (username.trim() === "") {
 			dispatch({ type: "errorUsername" });
 		} else if (password.trim() === "") {

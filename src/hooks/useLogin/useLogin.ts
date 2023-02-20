@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { toast } from "react-toastify";
 
 interface State {
 	username: string;
@@ -83,15 +84,17 @@ const useLogin: CustomHook = () => {
 		// Evaluating input values and then showing the proper result to the user
 		if (formValidator(username, password)) {
 			dispatch({ type: "success" });
+			toast.success(`Successfully loged in ${username.toUpperCase()}!`);
+			toast.clearWaitingQueue();
 			(document.getElementById("show") as HTMLElement).style.transform = "translateX(150%)";
-			alert("Successfully loged in!");
 		} else if (state.username.trim() === "") {
 			dispatch({ type: "errorUsername" });
 		} else if (state.password.toString().trim() === "") {
 			dispatch({ type: "errorPassword" });
 		} else {
 			dispatch({ type: "error" });
-			alert(`Incorrect username or password!\ntry this:\nusername = ejiro\npassword = 12345678`);
+			toast.warn("Incorrect username or password! try this:\nusername = ejiro\npassword = 12345678", { autoClose: false });
+			toast.clearWaitingQueue();
 		}
 	};
 

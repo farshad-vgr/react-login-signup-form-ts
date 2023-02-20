@@ -17,6 +17,17 @@
 	--color-orange: orange;
 	--color-red: red;
 	--color-dodgerblue: dodgerblue;
+
+	/* Toastify library customization */
+	--toastify-toast-width: 30vw;
+	--toastify-toast-min-height: 5rem;
+	--toastify-font-family: "Rubik", sans-serif;
+	--toastify-text-color-light: var(--color-black);
+	--toastify-text-color-dark: var(--color-whitesmoke);
+}
+
+.Toastify__toast-body {
+	white-space: pre-line; /* This attribute makes toasts having newlines(\n) or tabs(\t) or multi-spaces */
 }
 
 .container {
@@ -30,6 +41,7 @@
 	backdrop-filter: blur(1.5rem);
 	background-color: rgba(250, 250, 250, 0.5);
 	box-shadow: 0 0 1rem 0 var(--color-whitesmoke);
+	cursor: default;
 }
 
 .form-title {
