@@ -1,4 +1,6 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
+
+import useHintStyle from "../../hooks/useHintStyle/useHintStyle";
 
 interface Dispatch {
 	type: string;
@@ -14,27 +16,14 @@ interface Props {
 }
 
 const UsernameInput = ({ dispatch, username, usernameHint, placeHolder }: Props): JSX.Element => {
-	const iconStyles: React.CSSProperties =
-		usernameHint.length > 0
-			? {
-					borderBottomColor: "red",
-					backgroundColor: "red",
-			  }
-			: {};
-
-	const inputStyles: React.CSSProperties = usernameHint.length > 0 ? { borderBottomColor: "red" } : {};
-
-	useEffect(() => {
-		if (usernameHint.length > 0) {
-			(document.querySelector(`[placeholder=${placeHolder}]`) as HTMLInputElement).focus();
-		}
-	}, [usernameHint, placeHolder]);
+	// Using a custom hook to change color and focus
+	const { iconStyle, inputStyle } = useHintStyle(usernameHint, placeHolder);
 
 	return (
 		<>
 			<section>
 				<div className="content">
-					<div className="icon-container" style={iconStyles}>
+					<div className="icon-container" style={iconStyle}>
 						<div className="fa fa-pencil-alt"></div>
 					</div>
 
@@ -44,7 +33,7 @@ const UsernameInput = ({ dispatch, username, usernameHint, placeHolder }: Props)
 						placeholder={placeHolder}
 						minLength={3}
 						maxLength={15}
-						style={inputStyles}
+						style={inputStyle}
 						value={username}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 							dispatch({

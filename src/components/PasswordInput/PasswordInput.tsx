@@ -1,4 +1,6 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useRef } from "react";
+
+import useHintStyle from "../../hooks/useHintStyle/useHintStyle";
 
 interface Dispatch {
 	type: string;
@@ -17,27 +19,14 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 	const passwordInput = useRef<HTMLInputElement>(null!);
 	const eyeBtn = useRef<HTMLElement>(null!);
 
-	const iconStyles: React.CSSProperties =
-		passwordHint.length > 0
-			? {
-					borderBottomColor: "red",
-					backgroundColor: "red",
-			  }
-			: {};
-
-	const inputStyles: React.CSSProperties = passwordHint.length > 0 ? { borderBottomColor: "red" } : {};
-
-	useEffect(() => {
-		if (passwordHint.length > 0) {
-			(document.querySelector(`[placeholder=${placeHolder}]`) as HTMLInputElement).focus();
-		}
-	}, [passwordHint, placeHolder]);
+	// Using a custom hook to change color and focus
+	const { iconStyle, inputStyle } = useHintStyle(passwordHint, placeHolder);
 
 	return (
 		<>
 			<section>
 				<div className="content">
-					<div className="icon-container" style={iconStyles}>
+					<div className="icon-container" style={iconStyle}>
 						<div className="fa fa-lock"></div>
 					</div>
 
@@ -47,7 +36,7 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 						placeholder={placeHolder}
 						minLength={8}
 						maxLength={15}
-						style={inputStyles}
+						style={inputStyle}
 						value={password}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 							e.target.value.toString().length > 0

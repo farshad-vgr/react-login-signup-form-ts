@@ -1,4 +1,6 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
+
+import useHintStyle from "../../hooks/useHintStyle/useHintStyle";
 
 interface Dispatch {
 	type: string;
@@ -14,27 +16,14 @@ interface Props {
 }
 
 const EmailInput = ({ dispatch, email, emailHint, placeHolder }: Props): JSX.Element => {
-	const iconStyles: React.CSSProperties =
-		emailHint.length > 0
-			? {
-					borderBottomColor: "red",
-					backgroundColor: "red",
-			  }
-			: {};
-
-	const inputStyles: React.CSSProperties = emailHint.length > 0 ? { borderBottomColor: "red" } : {};
-
-	useEffect(() => {
-		if (emailHint.length > 0) {
-			(document.querySelector(`[placeholder=${placeHolder}]`) as HTMLInputElement).focus();
-		}
-	}, [emailHint, placeHolder]);
+	// Using a custom hook to change color and focus
+	const { iconStyle, inputStyle } = useHintStyle(emailHint, placeHolder);
 
 	return (
 		<>
 			<section>
 				<div className="content">
-					<div className="icon-container" style={iconStyles}>
+					<div className="icon-container" style={iconStyle}>
 						<div className="fa fa-envelope"></div>
 					</div>
 
@@ -43,7 +32,7 @@ const EmailInput = ({ dispatch, email, emailHint, placeHolder }: Props): JSX.Ele
 						placeholder="Email"
 						minLength={3}
 						maxLength={30}
-						style={inputStyles}
+						style={inputStyle}
 						value={email}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 							dispatch({
