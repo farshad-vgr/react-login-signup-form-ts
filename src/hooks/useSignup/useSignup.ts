@@ -1,4 +1,4 @@
-import { MutableRefObject, useReducer } from "react";
+import { RefObject, useReducer } from "react";
 import { toast } from "react-toastify";
 
 interface State {
@@ -128,8 +128,8 @@ function signupReducer(state: State, action: Action): State {
 }
 
 type CustomHook = (
-	ref1: MutableRefObject<HTMLElement>,
-	ref2: MutableRefObject<HTMLElement>,
+	ref1: RefObject<HTMLElement>,
+	ref2: RefObject<HTMLElement>,
 ) => {
 	state: State;
 	dispatch: React.Dispatch<Action>;
@@ -150,8 +150,10 @@ const useSignup: CustomHook = (ref1, ref2) => {
 			dispatch({ type: "success" });
 			toast.info(`Successfully signed up ( ${username} )!`);
 			toast.clearWaitingQueue();
-			ref1.current.style.transform = "translateX(150%)";
-			ref2.current.style.transform = "translateX(150%)";
+			if (ref1.current !== null && ref2.current !== null) {
+				ref1.current.style.transform = "translateX(150%)";
+				ref2.current.style.transform = "translateX(150%)";
+			}
 		} else if (username.trim() === "") {
 			dispatch({ type: "errorUsername" });
 		} else if (password.trim() === "") {

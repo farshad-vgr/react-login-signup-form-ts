@@ -9,7 +9,7 @@ interface Props {
 }
 
 const LoginForm = ({ formToggler }: Props): JSX.Element => {
-	const ref = useRef<HTMLElement>(null!); // This useRef hook is for implementing forwardRef
+	const ref = useRef<HTMLElement>(null); // This useRef hook is for implementing forwardRef
 	const { state, dispatch, onSubmit } = useLogin(ref);
 
 	// Destructuring state values for easier usage in return section

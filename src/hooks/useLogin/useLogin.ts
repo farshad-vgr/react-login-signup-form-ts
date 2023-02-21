@@ -1,4 +1,4 @@
-import { MutableRefObject, useReducer } from "react";
+import { RefObject, useReducer } from "react";
 import { toast } from "react-toastify";
 
 interface State {
@@ -70,7 +70,7 @@ function loginReducer(state: State, action: Action): State {
 	}
 }
 
-type CustomHook = (ref: MutableRefObject<HTMLElement>) => { state: State; dispatch: React.Dispatch<Action>; onSubmit: (e: React.FormEvent<HTMLFormElement>) => void };
+type CustomHook = (ref: RefObject<HTMLElement>) => { state: State; dispatch: React.Dispatch<Action>; onSubmit: (e: React.FormEvent<HTMLFormElement>) => void };
 
 const useLogin: CustomHook = (ref) => {
 	const [state, dispatch] = useReducer(loginReducer, initialState);
@@ -87,7 +87,7 @@ const useLogin: CustomHook = (ref) => {
 			dispatch({ type: "success" });
 			toast.success(`Successfully loged in ${username.toUpperCase()}!`);
 			toast.clearWaitingQueue();
-			ref.current.style.transform = "translateX(150%)";
+			if (ref.current !== null) { ref.current.style.transform = "translateX(150%)"; }
 		} else if (state.username.trim() === "") {
 			dispatch({ type: "errorUsername" });
 		} else if (state.password.toString().trim() === "") {

@@ -10,8 +10,8 @@ interface Props {
 
 const SignupForm = ({ formToggler }: Props): JSX.Element => {
 	// These useRef hook is for implementing forwardRef
-	const ref1 = useRef<HTMLElement>(null!);
-	const ref2 = useRef<HTMLElement>(null!);
+	const ref1 = useRef<HTMLElement>(null);
+	const ref2 = useRef<HTMLElement>(null);
 
 	const { state, dispatch, onRegister } = useSignup(ref1, ref2);
 
