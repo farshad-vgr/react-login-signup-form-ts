@@ -25,5 +25,5 @@ body {
 .suspense-fallback {
   margin: 5rem auto;
   font-size: 5rem;
-  color: gray;
+  color: orange;
 }

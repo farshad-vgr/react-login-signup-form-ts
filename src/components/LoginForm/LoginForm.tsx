@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
 
 import useLogin from "../../hooks/useLogin/useLogin";
 
@@ -9,7 +9,8 @@ interface Props {
 }
 
 const LoginForm = ({ formToggler }: Props): JSX.Element => {
-	const { state, dispatch, onSubmit } = useLogin();
+	const ref = useRef<HTMLElement>(null!); // This useRef hook is for implementing forwardRef
+	const { state, dispatch, onSubmit } = useLogin(ref);
 
 	// Destructuring state values for easier usage in return section
 	const { username, password, usernameHint, passwordHint, isChecked } = state;
@@ -23,7 +24,7 @@ const LoginForm = ({ formToggler }: Props): JSX.Element => {
 					<form className="form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}>
 						<UsernameInput dispatch={dispatch} username={username} usernameHint={usernameHint} placeHolder="Name" />
 
-						<PasswordInput dispatch={dispatch} password={password} passwordHint={passwordHint} placeHolder="Password" />
+						<PasswordInput dispatch={dispatch} password={password} passwordHint={passwordHint} placeHolder="Password" ref={ref} />
 
 						<CheckboxInput dispatch={dispatch} isChecked={isChecked} checkboxText="Remember me!" isRequired={false} />
 

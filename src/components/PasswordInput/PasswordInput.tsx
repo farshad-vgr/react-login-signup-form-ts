@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, forwardRef, Ref } from "react";
 
 import useHintStyle from "../../hooks/useHintStyle/useHintStyle";
 
@@ -15,7 +15,7 @@ interface Props {
 	placeHolder: string;
 }
 
-const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props): JSX.Element => {
+const PasswordInput = forwardRef(({ dispatch, password, passwordHint, placeHolder }: Props, ref: Ref<HTMLElement>): JSX.Element => {
 	// Using a custom hook to change color and focus
 	const { iconStyle, inputStyle } = useHintStyle(passwordHint, placeHolder);
 
@@ -48,7 +48,7 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 
 					<span className="show-hide">
 						<i
-							// ref={ref}
+							ref={ref}
 							id="show"
 							className="fa fa-eye"
 							onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -66,6 +66,6 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 			</section>
 		</>
 	);
-};
+});
 
 export default memo(PasswordInput);

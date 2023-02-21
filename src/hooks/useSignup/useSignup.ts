@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { MutableRefObject, useReducer } from "react";
 import { toast } from "react-toastify";
 
 interface State {
@@ -127,9 +127,16 @@ function signupReducer(state: State, action: Action): State {
 	}
 }
 
-type CustomHook = () => { state: State; dispatch: React.Dispatch<Action>; onRegister: (e: React.FormEvent<HTMLFormElement>) => void };
+type CustomHook = (
+	ref1: MutableRefObject<HTMLElement>,
+	ref2: MutableRefObject<HTMLElement>,
+) => {
+	state: State;
+	dispatch: React.Dispatch<Action>;
+	onRegister: (e: React.FormEvent<HTMLFormElement>) => void;
+};
 
-const useSignup: CustomHook = () => {
+const useSignup: CustomHook = (ref1, ref2) => {
 	const [state, dispatch] = useReducer(signupReducer, initialState);
 
 	// When the user clicks on the Form's submit button, this function handle process
@@ -141,9 +148,10 @@ const useSignup: CustomHook = () => {
 		// Evaluating input values and then showing the proper result to the user
 		if (formValidator(username, password, passwordConfirm, email)) {
 			dispatch({ type: "success" });
-			[...(document.querySelectorAll(".show-hide i") as NodeListOf<HTMLElement>)].map((btn) => (btn.style.transform = "translateX(150%)"));
 			toast.info(`Successfully signed up ( ${username} )!`);
 			toast.clearWaitingQueue();
+			ref1.current.style.transform = "translateX(150%)";
+			ref2.current.style.transform = "translateX(150%)";
 		} else if (username.trim() === "") {
 			dispatch({ type: "errorUsername" });
 		} else if (password.trim() === "") {

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
 
 import useSignup from "../../hooks/useSignup/useSignup";
 
@@ -9,7 +9,11 @@ interface Props {
 }
 
 const SignupForm = ({ formToggler }: Props): JSX.Element => {
-	const { state, dispatch, onRegister } = useSignup();
+	// These useRef hook is for implementing forwardRef
+	const ref1 = useRef<HTMLElement>(null!);
+	const ref2 = useRef<HTMLElement>(null!);
+
+	const { state, dispatch, onRegister } = useSignup(ref1, ref2);
 
 	// Destructuring state values for easier usage in return section
 	const { username, password, passwordConfirm, email, usernameHint, passwordHint, passwordConfirmHint, emailHint, isChecked } = state;
@@ -23,9 +27,9 @@ const SignupForm = ({ formToggler }: Props): JSX.Element => {
 					<form className="form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => onRegister(e)}>
 						<UsernameInput dispatch={dispatch} username={username} usernameHint={usernameHint} placeHolder="Name" />
 
-						<PasswordInput dispatch={dispatch} password={password} passwordHint={passwordHint} placeHolder="Password" />
+						<PasswordInput dispatch={dispatch} password={password} passwordHint={passwordHint} placeHolder="Password" ref={ref1} />
 
-						<PasswordInput dispatch={dispatch} password={passwordConfirm} passwordHint={passwordConfirmHint} placeHolder="Confirm-Password" />
+						<PasswordInput dispatch={dispatch} password={passwordConfirm} passwordHint={passwordConfirmHint} placeHolder="Confirm-Password" ref={ref2} />
 
 						<EmailInput dispatch={dispatch} email={email} emailHint={emailHint} placeHolder="Email" />
 
