@@ -1,4 +1,4 @@
-import React, { memo, useRef } from "react";
+import React, { memo } from "react";
 
 import useHintStyle from "../../hooks/useHintStyle/useHintStyle";
 
@@ -16,9 +16,6 @@ interface Props {
 }
 
 const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props): JSX.Element => {
-	const passwordInput = useRef<HTMLInputElement>(null!);
-	const eyeBtn = useRef<HTMLElement>(null!);
-
 	// Using a custom hook to change color and focus
 	const { iconStyle, inputStyle } = useHintStyle(passwordHint, placeHolder);
 
@@ -31,7 +28,6 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 					</div>
 
 					<input
-						ref={passwordInput}
 						type="password"
 						placeholder={placeHolder}
 						minLength={8}
@@ -40,8 +36,8 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 						value={password}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 							e.target.value.toString().length > 0
-								? (eyeBtn.current.style.transform = "translateX(0)")
-								: (eyeBtn.current.style.transform = "translateX(150%)");
+								? e.currentTarget.nextElementSibling?.firstElementChild?.setAttribute("style", "transform: translateX(0)")
+								: e.currentTarget.nextElementSibling?.firstElementChild?.setAttribute("style", "transform: translateX(150%)");
 							dispatch({
 								type: "field",
 								fieldName: placeHolder === "Password" ? "password" : "passwordConfirm",
@@ -52,16 +48,16 @@ const PasswordInput = ({ dispatch, password, passwordHint, placeHolder }: Props)
 
 					<span className="show-hide">
 						<i
-							ref={eyeBtn}
+							// ref={ref}
 							id="show"
 							className="fa fa-eye"
-							onClick={() => {
-								if (passwordInput.current.type === "password") {
-									passwordInput.current.type = "text";
-									eyeBtn.current.classList.add("hide");
+							onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+								if (e.currentTarget.parentElement?.previousElementSibling?.getAttribute("type") === "password") {
+									e.currentTarget.parentElement?.previousElementSibling?.setAttribute("type", "text");
+									e.currentTarget.classList.add("hide");
 								} else {
-									passwordInput.current.type = "password";
-									eyeBtn.current.classList.remove("hide");
+									e.currentTarget.parentElement?.previousElementSibling?.setAttribute("type", "password");
+									e.currentTarget.classList.remove("hide");
 								}
 							}}></i>
 					</span>

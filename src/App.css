@@ -193,8 +193,8 @@
 	cursor: pointer;
 }
 .show-hide i.hide::before {
-	/* code for eye icon */
-	content: "\f070";
+	content: "\f070"; /* code for eye icon */
+	margin: -1px; /* fix position */
 }
 
 .checkbox-section {
