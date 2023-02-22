@@ -16,8 +16,10 @@ const LoginForm = ({ formToggler }: Props): JSX.Element => {
 	const ref2 = useRef<HTMLButtonElement>(null);
 
 	const { state, dispatch, onSubmit } = useLogin(ref1);
-	const [showModal, setShowModal] = useState<boolean>(false);
 	const { emailAddress, dispatchEmail, onRecovery } = useRecovery(ref2);
+
+	// Show a modal when the user wants to recovery his password by email address
+	const [showModal, setShowModal] = useState<boolean>(false);
 
 	// Destructuring state values for easier usage in return section
 	const { username, password, usernameHint, passwordHint, isChecked } = state;
@@ -57,7 +59,12 @@ const LoginForm = ({ formToggler }: Props): JSX.Element => {
 							{showModal &&
 								createPortal(
 									<ModalBox onClose={() => setShowModal(false)} title="Password Recovery" ref={ref2}>
-										<form className="form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => { e.stopPropagation(); onRecovery(e);}}>
+										<form
+											className="form"
+											onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+												e.stopPropagation();
+												onRecovery(e);
+											}}>
 											<EmailInput dispatch={dispatchEmail} email={emailAddress.email} emailHint={emailAddress.emailHint} placeHolder="Email" />
 											<SubmitButton btnText="Send" />
 										</form>
