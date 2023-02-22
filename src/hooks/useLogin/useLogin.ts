@@ -88,9 +88,9 @@ const useLogin: CustomHook = (ref) => {
 			toast.success(`Successfully loged in ${username.toUpperCase()}!`);
 			toast.clearWaitingQueue();
 			if (ref.current !== null) { ref.current.style.transform = "translateX(150%)"; }
-		} else if (state.username.trim() === "") {
+		} else if (username.trim() === "") {
 			dispatch({ type: "errorUsername" });
-		} else if (state.password.toString().trim() === "") {
+		} else if (password.toString().trim() === "") {
 			dispatch({ type: "errorPassword" });
 		} else {
 			dispatch({ type: "error" });
