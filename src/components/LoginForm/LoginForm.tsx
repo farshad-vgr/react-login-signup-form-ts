@@ -1,16 +1,23 @@
-import React, { memo, useRef } from "react";
+import React, { memo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import useLogin from "../../hooks/useLogin/useLogin";
+import useRecovery from "../../hooks/useRecovery/useRecovery";
 
-import { UsernameInput, PasswordInput, CheckboxInput, SubmitButton, SocialButton } from "../../components";
+import { UsernameInput, PasswordInput, CheckboxInput, SubmitButton, SocialButton, ModalBox, EmailInput } from "../../components";
 
 interface Props {
 	formToggler: () => void;
 }
 
 const LoginForm = ({ formToggler }: Props): JSX.Element => {
-	const ref = useRef<HTMLElement>(null); // This useRef hook is for implementing forwardRef
-	const { state, dispatch, onSubmit } = useLogin(ref);
+	// These useRef hooks are for implementing forwardRef
+	const ref1 = useRef<HTMLElement>(null);
+	const ref2 = useRef<HTMLButtonElement>(null);
+
+	const { state, dispatch, onSubmit } = useLogin(ref1);
+	const [showModal, setShowModal] = useState<boolean>(false);
+	const { emailAddress, dispatchEmail, onRecovery } = useRecovery(ref2);
 
 	// Destructuring state values for easier usage in return section
 	const { username, password, usernameHint, passwordHint, isChecked } = state;
@@ -24,7 +31,7 @@ const LoginForm = ({ formToggler }: Props): JSX.Element => {
 					<form className="form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}>
 						<UsernameInput dispatch={dispatch} username={username} usernameHint={usernameHint} placeHolder="Name" />
 
-						<PasswordInput dispatch={dispatch} password={password} passwordHint={passwordHint} placeHolder="Password" ref={ref} />
+						<PasswordInput dispatch={dispatch} password={password} passwordHint={passwordHint} placeHolder="Password" ref={ref1} />
 
 						<CheckboxInput dispatch={dispatch} isChecked={isChecked} checkboxText="Remember me!" isRequired={false} />
 
@@ -46,7 +53,18 @@ const LoginForm = ({ formToggler }: Props): JSX.Element => {
 						</section>
 
 						<section className="form-options">
-							<span>Forgot password?</span>
+							<span onClick={() => setShowModal(true)}>Forgot password?</span>
+							{showModal &&
+								createPortal(
+									<ModalBox onClose={() => setShowModal(false)} title="Password Recovery" ref={ref2}>
+										<form className="form" onSubmit={(e: React.FormEvent<HTMLFormElement>) => { e.stopPropagation(); onRecovery(e);}}>
+											<EmailInput dispatch={dispatchEmail} email={emailAddress.email} emailHint={emailAddress.emailHint} placeHolder="Email" />
+											<SubmitButton btnText="Send" />
+										</form>
+									</ModalBox>,
+									document.body,
+								)}
+
 							<span
 								onClick={() => {
 									formToggler();

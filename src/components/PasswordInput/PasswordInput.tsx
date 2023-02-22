@@ -15,7 +15,7 @@ interface Props {
 	placeHolder: string;
 }
 
-const PasswordInput = forwardRef(({ dispatch, password, passwordHint, placeHolder }: Props, ref: Ref<HTMLElement>): JSX.Element => {
+const PasswordInput = forwardRef(({ dispatch, password, passwordHint, placeHolder }: Props, ref1: Ref<HTMLElement>): JSX.Element => {
 	// Using a custom hook to change color and focus
 	const { iconStyle, inputStyle } = useHintStyle(passwordHint, placeHolder);
 
@@ -48,7 +48,7 @@ const PasswordInput = forwardRef(({ dispatch, password, passwordHint, placeHolde
 
 					<span className="show-hide">
 						<i
-							ref={ref}
+							ref={ref1}
 							id="show"
 							className="fa fa-eye"
 							onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {

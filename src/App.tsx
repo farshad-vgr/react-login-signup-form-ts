@@ -8,17 +8,17 @@ import "./App.css";
 
 function App(): JSX.Element {
 	// By default login form will be shown to the user
-	const [loginFormShowed, setLoginFrormShowed] = useState<boolean>(true);
+	const [showLoginForm, setShowLoginForm] = useState<boolean>(true);
 
 	// Switch between the Login component and the Signup component when the user clicked on a specific button on form
 	const formToggler: () => void = useCallback(() => {
-		setLoginFrormShowed(!loginFormShowed);
-	}, [loginFormShowed]);
+		setShowLoginForm(!showLoginForm);
+	}, [showLoginForm]);
 
 	return (
 		<>
 			<ToastContainer position="top-center" limit={2} newestOnTop={true} closeOnClick={false} draggablePercent={30} />
-			{loginFormShowed ? <LoginForm formToggler={formToggler} /> : <SignupForm formToggler={formToggler} />}
+			{showLoginForm ? <LoginForm formToggler={formToggler} /> : <SignupForm formToggler={formToggler} />}
 		</>
 	);
 }

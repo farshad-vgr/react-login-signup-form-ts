@@ -14,3 +14,4 @@ export { default as EmailInput } from "./EmailInput/EmailInput";
 export { default as CheckboxInput } from "./CheckboxInput/CheckboxInput";
 export { default as SubmitButton } from "./SubmitButton/SubmitButton";
 export { default as SocialButton } from "./SocialButton/SocialButton";
+export { default as ModalBox } from "./ModalBox/ModalBox";
