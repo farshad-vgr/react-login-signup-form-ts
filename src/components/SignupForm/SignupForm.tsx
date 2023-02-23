@@ -1,4 +1,5 @@
 import React, { memo, useRef } from "react";
+import { toast } from "react-toastify";
 
 import useSignup from "../../hooks/useSignup/useSignup";
 
@@ -44,7 +45,7 @@ const SignupForm = ({ formToggler }: Props): JSX.Element => {
 						<SubmitButton btnText="Signup" />
 
 						<section className="form-options">
-							<span>Subscribe Newsletter?</span>
+							<span onClick={ () => toast.success("Successfully subscribed!") }>Subscribe Newsletter?</span>
 							<span
 								onClick={() => {
 									formToggler();
