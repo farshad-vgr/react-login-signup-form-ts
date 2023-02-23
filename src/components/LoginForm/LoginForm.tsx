@@ -65,6 +65,10 @@ const LoginForm = ({ formToggler }: Props): JSX.Element => {
 												e.stopPropagation();
 												onRecovery(e);
 											}}>
+											<p style={{ textAlign: "start", textJustify: "auto" }}>
+												<i className="fa fa-info-circle" style={{marginRight: "0.25rem", color: "gray"}}></i>
+												If you forgot your password, enter your email address to recover your Account. Then, you can log in with a new password.
+											</p>
 											<EmailInput dispatch={dispatchEmail} email={emailAddress.email} emailHint={emailAddress.emailHint} placeHolder="Email" />
 											<SubmitButton btnText="Send" />
 										</form>

@@ -6,7 +6,7 @@ interface Props {
 	children: React.ReactNode;
 }
 
-const ModalBox = forwardRef(({ onClose, title, children }: Props, ref2: Ref<HTMLButtonElement>) => {
+const ModalBox = forwardRef(({ onClose, title, children }: Props, ref2: Ref<HTMLButtonElement>): JSX.Element => {
 	return (
 		<>
 			<div
@@ -20,9 +20,8 @@ const ModalBox = forwardRef(({ onClose, title, children }: Props, ref2: Ref<HTML
 					<button className="modal-btn" onClick={onClose} ref={ref2}>
 						<i className="fa fa-window-close"></i>
 					</button>
-					<section className="modal-main">
+					<section style={{width: "95%"}}>
 						<h3 className="modal-title">{title}</h3>
-						<hr style={{ border: "1px dashed black" }}></hr>
 						<div className="modal-body">{children}</div>
 					</section>
 				</div>
